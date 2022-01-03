@@ -7,6 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using NHibernate.Cfg;
+using NHibernate.Dialect;
+using NHibernate.Driver;
+
 namespace API
 {
     public class Program
