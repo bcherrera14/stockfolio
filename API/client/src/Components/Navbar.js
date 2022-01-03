@@ -1,18 +1,20 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
+import Rocket from '../images/rocket-solid.svg';
 
 const Navbar = () => {
 	return (
 		<div>
-			<nav className="navbar navbar-expand-lg navbar-light bg-light">
+			<nav className="navbar navbar-expand-lg navbar-dark">
 				<div className="container-fluid">
 					<a className="navbar-brand" href="#">
 						<img
-							src="/docs/5.0/assets/brand/bootstrap-logo.svg"
+							src={Rocket}
 							alt=""
 							width="30"
 							height="24"
-							className="d-inline-block align-text-top"
+							className="d-inline-block align-text-top me-2"
+							id="rocket-logo"
 						/>
 						Stockfolio
 					</a>
@@ -30,17 +32,11 @@ const Navbar = () => {
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav">
 							<li className="nav-item">
-								{/* <a className="nav-link active" aria-current="page" href="#">
-									Home
-								</a> */}
 								<NavLink className="nav-link" to="/portfolio">
 									Portfolio
 								</NavLink>
 							</li>
 							<li className="nav-item">
-								{/* <a className="nav-link" href="#">
-									Features
-								</a> */}
 								<NavLink className="nav-link" to="/">
 									Landing
 								</NavLink>
