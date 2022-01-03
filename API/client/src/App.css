@@ -1,0 +1,16 @@
+nav {
+	background-color: #403e94;
+}
+
+.landing-content {
+	height: 100vh;
+}
+
+form {
+	margin: 1rem 1.5rem;
+}
+
+.form-container {
+	width: 325px;
+	/* height: 325px; */
+}
