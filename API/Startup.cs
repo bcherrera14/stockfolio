@@ -12,6 +12,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.Extensions.Options;
+using API.Models;
+using NHibernate.NetCore;
+
 
 namespace API
 {
@@ -26,6 +30,8 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var cfg = new NHibernate.Cfg.Configuration().Configure();
+            services.AddHibernate(cfg);
 
             services.AddControllers();
 
@@ -33,6 +39,8 @@ namespace API
             {
                 config.RootPath = "client/build";
             });
+
+           // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSwaggerGen(c =>
             {
