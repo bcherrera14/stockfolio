@@ -1,13 +1,22 @@
 import React from 'react';
+import Signup from './Signup';
 
 class Landing extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+			modalShow: false
 		};
 		this.onFormSubmit = this.onFormSubmit.bind(this);
+		this.setModalShow = this.setModalShow.bind(this);
+	}
+
+	setModalShow(bool) {
+		this.setState({
+			modalShow: bool
+		});
 	}
 
 	onFormSubmit(e) {
@@ -50,7 +59,7 @@ class Landing extends React.Component {
 	render() {
 		return (
 			<div className="landing-page">
-				<div className="landing-content d-flex justify-content-around align-items-center">
+				<div className="landing-content d-flex flex-wrap justify-content-around align-items-center">
 					<h1>App Descritpion</h1>
 					<div className="d-flex flex-column">
 						<div className="card form-container d-flex flex-column mb-3">
@@ -94,6 +103,8 @@ class Landing extends React.Component {
 						</div>
 					</div>
 				</div>
+				{/* <SignUp show={this.state.modalShow} onHide={() => this.setModalShow(false)} /> */}
+				<Signup show={this.state.modalShow} onHide={() => this.setModalShow(false)} />
 			</div>
 		);
 	}
