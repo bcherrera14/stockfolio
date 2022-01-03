@@ -2,6 +2,16 @@ nav {
 	background-color: #403e94;
 }
 
+#logout {
+	color: #fff9ea;
+	transition: 0.3s;
+}
+
+#logout:hover {
+	color: #a9a8cb;
+	font-size: .99em;
+}
+
 .landing-content {
 	height: 100vh;
 }

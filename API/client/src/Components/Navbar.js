@@ -41,7 +41,12 @@ const Navbar = () => {
 									Portfolio
 								</NavLink>
 							</li>
+							<li className="nav-item" />
 						</ul>
+
+						<NavLink id="logout" className="nav-link ms-auto" to="/portfolio">
+							<i class="fas fa-sign-out-alt" /> Logout
+						</NavLink>
 					</div>
 				</div>
 			</nav>
