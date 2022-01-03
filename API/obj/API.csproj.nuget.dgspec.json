@@ -44,9 +44,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Client": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.AspNetCore.SpaServices.Extensions": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[5.0.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
