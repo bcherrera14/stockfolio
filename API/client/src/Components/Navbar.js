@@ -45,7 +45,7 @@ const Navbar = () => {
 						</ul>
 
 						<NavLink id="logout" className="nav-link ms-auto" to="/portfolio">
-							<i class="fas fa-sign-out-alt" /> Logout
+							<i className="fas fa-sign-out-alt" /> Logout
 						</NavLink>
 					</div>
 				</div>

@@ -50,6 +50,7 @@ class Signup extends React.Component {
 							<h3 className="align-self-center mb-2">Sign Up</h3>
 							<div className="form-group mb-2">
 								<label>First Name</label>
+
 								<input
 									type="text"
 									className="form-control form-control-sm"

@@ -1,5 +1,6 @@
 import React from 'react';
 import Signup from './Signup';
+import history from '../History';
 
 class Landing extends React.Component {
 	constructor(props) {
@@ -35,7 +36,7 @@ class Landing extends React.Component {
 		if (prevState.username !== this.state.username) {
 			console.log(this.state.username);
 			console.log(this.state.password);
-
+			history.push('/portfolio');
 			// let config = {
 			// 	params: {
 			// 		username: this.state.username,
@@ -67,21 +68,31 @@ class Landing extends React.Component {
 								<h3 className="align-self-center ">Login</h3>
 								<div className="form-group mt-3">
 									<label>Username</label>
-									<input
-										type="text"
-										className="form-control"
-										id="username"
-										placeholder="Enter username"
-									/>
+									<div className="input-group">
+										<span className="input-group-text" id="username-addon">
+											<i className="fas fa-user" />
+										</span>
+										<input
+											type="text"
+											className="form-control"
+											id="username"
+											placeholder="Enter username"
+										/>
+									</div>
 								</div>
 								<div className="form-group mt-3">
 									<label>Password</label>
-									<input
-										type="password"
-										className="form-control"
-										id="password"
-										placeholder="Password"
-									/>
+									<div className="input-group">
+										<span className="input-group-text" id="password-addon">
+											<i className="fas fa-lock" />
+										</span>
+										<input
+											type="password"
+											className="form-control"
+											id="password"
+											placeholder="Password"
+										/>
+									</div>
 								</div>
 
 								<button type="submit" className="btn btn-secondary btn-sm mt-3">

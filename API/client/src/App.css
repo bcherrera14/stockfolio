@@ -28,3 +28,7 @@ form {
 .signup-form {
 	width: 400px;
 }
+
+form i {
+	color: #6c757d;
+}
