@@ -1,10 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "1CCwCe70cmsjn1npsBWblgluT8PXitdZ+7qBEvmwTTwv5Cbi09jOJ+1uXJ0q4yc5fVGMrPdgJzCI9i835HkCdA==",
+  "dgSpecHash": "kBB1Ae59tdgFImDR43teR4XhRdL9U8jGUvlWM3bVDziSfzKMtdVnqIhTrs5Ytaq+pWCFhLPu4HlZVX4EfAB9pg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bryan Herrera\\Desktop\\Bryans_Code\\React\\stockfolio\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.aspnetcore.spaservices.extensions\\5.0.2\\microsoft.aspnetcore.spaservices.extensions.5.0.2.nupkg.sha512",
     "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\5.0.0\\microsoft.extensions.fileproviders.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\5.0.0\\microsoft.extensions.fileproviders.physical.5.0.0.nupkg.sha512",
+    "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
+    "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\Bryan Herrera\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Bryan Herrera\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\Bryan Herrera\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
