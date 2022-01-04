@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import SharesList from './SharesList';
 
 class Landing extends React.Component {
 	constructor(props) {
@@ -13,7 +14,7 @@ class Landing extends React.Component {
 			netAssets: 0
 		};
 		//this.setModalShow = this.setModalShow.bind(this);
-		//this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
+		this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
 		this.getUsersStocks = this.getUsersStocks.bind(this);
 		//this.getAccountBalance = this.getAccountBalance.bind(this);
 		//this.sumNetAssets = this.sumNetAssets.bind(this);
@@ -39,15 +40,51 @@ class Landing extends React.Component {
 			});
 	}
 
+	getCurrentStockPrice() {
+		let symbolList = [];
+		this.state.shares.forEach((share) => symbolList.push(share.symbol));
+		symbolList = [ ...new Set(symbolList) ];
+
+		let config = {
+			params: {
+				stockList: symbolList.join(',')
+			}
+		};
+		axios
+			.get('http://localhost:5000/api/stocks/search/all', config)
+			.then((response) => {
+				console.log(response.data);
+				// console.log(this.state);
+				this.setState({
+					currentPrices: response.data
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
+
 	componentDidMount() {
 		//this.getAccountBalance();
 		this.getUsersStocks();
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.shares !== this.state.shares) {
+			this.getCurrentStockPrice();
+		}
+	}
+
 	render() {
 		return (
 			<div>
-				<h1>Portfolio Page</h1>
+				{this.state.currentPrices !== null ? (
+					<SharesList
+						sumNetAssets={this.sumNetAssets}
+						shares={this.state.shares}
+						currentPrices={this.state.currentPrices}
+					/>
+				) : null}
 			</div>
 		);
 	}
