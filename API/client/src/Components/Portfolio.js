@@ -127,12 +127,14 @@ class Landing extends React.Component {
 				{this.state.currentPrices !== null ? (
 					<SharesList shares={this.state.shares} currentPrices={this.state.currentPrices} />
 				) : null}
-				<Purchase
-					modalstate={this.state.modalShow.toString()}
-					show={this.state.modalShow}
-					onHide={() => this.setModalShow(false)}
-					accountbalance={this.state.accountBalance}
-				/>
+				{this.state.accountBalance !== 0 ? (
+					<Purchase
+						modalstate={this.state.modalShow.toString()}
+						show={this.state.modalShow}
+						onHide={() => this.setModalShow(false)}
+						accountbalance={this.state.accountBalance}
+					/>
+				) : null}
 			</div>
 		);
 	}

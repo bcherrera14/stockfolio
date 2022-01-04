@@ -2,24 +2,26 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 
-class StockModal extends React.Component {
-	constructor() {
-		super();
+class Purchase extends React.Component {
+	constructor(props) {
+		super(props);
 		this.state = {
 			user_id: window.localStorage.getItem('user_id'),
 			stockSymbol: '',
 			stockName: '',
 			stockPrice: '',
 			totalshares: 0,
-			accountBalance: 0
+			accountBalance: this.props.accountbalance
 		};
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.purchaseStocks = this.purchaseStocks.bind(this);
 	}
 
-	componentDidMount() {
-		this.setState({ accountBalance: this.props.accountbalance });
-	}
+	// componentDidMount() {
+	// 	this.setState({ accountBalance: this.props.accountbalance });
+	// 	//console.log(this.state.accountBalance);
+	// 	console.log(this.props.accountbalance);
+	// }
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.stockSymbol !== this.state.stockSymbol) {
@@ -177,4 +179,4 @@ class StockModal extends React.Component {
 	}
 }
 
-export default StockModal;
+export default Purchase;
