@@ -1,13 +1,20 @@
 import React from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, location } from 'react-router-dom';
 import Rocket from '../images/rocket-solid.svg';
 
 const Navbar = () => {
+	function logoutUser(){
+		localStorage.removeItem('user_id');
+		//console.log(window.localStorage.getItem('user_id'));
+	}
+
+	let logoutClass = window.localStorage.getItem('user_id') ? "nav-link ms-auto show-item" : "nav-link ms-auto hide-item";
+	let navItemClass = window.localStorage.getItem('user_id') ? "nav-item show-item" : "nav-item hide-item";
 	return (
 		<div>
 			<nav className="navbar navbar-expand-lg navbar-dark">
 				<div className="container-fluid">
-					<a className="navbar-brand" href="#">
+					<a className="navbar-brand" href="/">
 						<img
 							src={Rocket}
 							alt=""
@@ -31,12 +38,7 @@ const Navbar = () => {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav">
-							<li className="nav-item">
-								<NavLink className="nav-link" to="/">
-									Landing
-								</NavLink>
-							</li>
-							<li className="nav-item">
+							<li className={navItemClass}>
 								<NavLink className="nav-link" to="/portfolio">
 									Portfolio
 								</NavLink>
@@ -44,7 +46,7 @@ const Navbar = () => {
 							<li className="nav-item" />
 						</ul>
 
-						<NavLink id="logout" className="nav-link ms-auto" to="/portfolio">
+						<NavLink id="logout" className={logoutClass} to="/" onClick={() => logoutUser()}>
 							<i className="fas fa-sign-out-alt" /> Logout
 						</NavLink>
 					</div>

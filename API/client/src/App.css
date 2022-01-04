@@ -12,6 +12,14 @@ nav {
 	font-size: .99em;
 }
 
+.show-item{
+	display: block;
+}
+
+.hide-item{
+	display: none;
+}
+
 .landing-content {
 	height: 100vh;
 }
