@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns = "urn:nhibernate-mapping-2.2"
+   assembly = "API" namespace = "API.Models">
+
+	<class name = "StockData" table="`stocks`">
+		<id name = "stock_id" column="stock_id" type="string">
+			<generator class = "uuid.hex"/>
+		</id>
+		<property name = "user_id" column="user_id" type="string"/>
+		<property name = "companyname" column="companyname" type="string"/>
+		<property name = "symbol" column="symbol" type="string"/>
+		<property name = "totalshares" column="totalshares" type="int"/>
+		<property name = "purchaseprice" column="purchaseprice" type="string"/>
+
+	</class>
+
+</hibernate-mapping>
