@@ -1,6 +1,6 @@
 import React from 'react';
 import Signup from './Signup';
-import history from '../History';
+import axios from 'axios';
 
 class Landing extends React.Component {
 	constructor(props) {
@@ -34,26 +34,25 @@ class Landing extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.username !== this.state.username) {
-			console.log(this.state.username);
-			console.log(this.state.password);
-			history.push('/portfolio');
-			// let config = {
-			// 	params: {
-			// 		username: this.state.username,
-			// 		password: this.state.password
-			// 	}
-			// };
+			//console.log(this.state.username);
+			//console.log(this.state.password);
+			 let config = {
+			 	params: {
+			 		username: this.state.username,
+			 		password: this.state.password
+			 	}
+			 };
 
-			// axios
-			// 	.get('http://localhost:5000/api/login', config)
-			// 	.then((response) => {
-			// 		console.log(response.data);
-			// 		window.localStorage.setItem('user_id', response.data.id);
-			// 		history.push('/portfolio');
-			// 	})
-			// 	.catch((error) => {
-			// 		console.log(error);
-			// 	});
+			 axios
+			 	.get('http://localhost:5000/api/login', config)
+				 .then((response) => {
+			 		console.log(response.data);
+			 		window.localStorage.setItem('user_id', response.data.id);
+					this.props.navigate('/portfolio');
+			 	})
+			 	.catch((error) => {
+			 		console.log(error);
+			 	});
 		}
 	}
 
