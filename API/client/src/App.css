@@ -81,3 +81,19 @@ form i {
 .text-green {
 	color: green;
 }
+
+hr {
+	margin: 1rem 0;
+	color: inherit;
+	background-color: gray;
+	border: 1;
+	/* opacity: .25; */
+}
+
+#stock-search-result {
+	visibility: hidden;
+}
+
+#shares {
+	width: 125px;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import SharesList from './SharesList';
+import Purchase from './Purchase';
 
 class Landing extends React.Component {
 	constructor(props) {
@@ -10,14 +11,18 @@ class Landing extends React.Component {
 			modalShow: false,
 			shares: [],
 			accountBalance: 0,
-			currentPrices: null,
-			netAssets: 0
+			currentPrices: null
 		};
-		//this.setModalShow = this.setModalShow.bind(this);
+		this.setModalShow = this.setModalShow.bind(this);
 		this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
 		this.getUsersStocks = this.getUsersStocks.bind(this);
-		//this.getAccountBalance = this.getAccountBalance.bind(this);
-		//this.sumNetAssets = this.sumNetAssets.bind(this);
+		this.getAccountBalance = this.getAccountBalance.bind(this);
+	}
+
+	setModalShow(bool) {
+		this.setState({
+			modalShow: bool
+		});
 	}
 
 	getUsersStocks() {
@@ -64,8 +69,27 @@ class Landing extends React.Component {
 			});
 	}
 
+	getAccountBalance() {
+		let config = {
+			params: {
+				user_id: this.state.user_id
+			}
+		};
+		axios
+			.get('http://localhost:5000/api/user/id', config)
+			.then((response) => {
+				console.log(response.data);
+				this.setState({
+					accountBalance: parseFloat(response.data.accountbalance)
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
+
 	componentDidMount() {
-		//this.getAccountBalance();
+		this.getAccountBalance();
 		this.getUsersStocks();
 	}
 
@@ -77,14 +101,38 @@ class Landing extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="container">
+				<div className="d-flex align-items-center m-4">
+					<h1 className="mb-0">My Portfolio</h1>
+					<button type="button" className="btn btn-primary ms-auto" onClick={() => this.setModalShow(true)}>
+						Purchase Stocks
+					</button>
+				</div>
+				<hr className="m-3" />
+				<div className="ml-auto me-auto m-5 d-flex justify-content-around account-balance">
+					<div className="d-flex">
+						<h4 className="me-2">Account Balance:</h4>
+
+						<h4>
+							{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
+								this.state.accountBalance
+							)}
+						</h4>
+					</div>
+					<div className="d-flex">
+						<h4 className="me-2">Net Assets: </h4>
+						<h4>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(10)}</h4>
+					</div>
+				</div>
 				{this.state.currentPrices !== null ? (
-					<SharesList
-						sumNetAssets={this.sumNetAssets}
-						shares={this.state.shares}
-						currentPrices={this.state.currentPrices}
-					/>
+					<SharesList shares={this.state.shares} currentPrices={this.state.currentPrices} />
 				) : null}
+				<Purchase
+					modalstate={this.state.modalShow.toString()}
+					show={this.state.modalShow}
+					onHide={() => this.setModalShow(false)}
+					accountbalance={this.state.accountBalance}
+				/>
 			</div>
 		);
 	}
