@@ -36,23 +36,23 @@ class Landing extends React.Component {
 		if (prevState.username !== this.state.username) {
 			//console.log(this.state.username);
 			//console.log(this.state.password);
-			 let config = {
-			 	params: {
-			 		username: this.state.username,
-			 		password: this.state.password
-			 	}
-			 };
+			let config = {
+				params: {
+					username: this.state.username,
+					password: this.state.password
+				}
+			};
 
-			 axios
-			 	.get('http://localhost:5000/api/login', config)
-				 .then((response) => {
-			 		console.log(response.data);
-			 		window.localStorage.setItem('user_id', response.data.id);
+			axios
+				.get('http://localhost:5000/api/login', config)
+				.then((response) => {
+					console.log(response.data);
+					window.localStorage.setItem('user_id', response.data.id);
 					this.props.navigate('/portfolio');
-			 	})
-			 	.catch((error) => {
-			 		console.log(error);
-			 	});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 	}
 
@@ -62,11 +62,11 @@ class Landing extends React.Component {
 				<div className="landing-content d-flex flex-wrap justify-content-around align-items-center">
 					<h1>App Descritpion</h1>
 					<div className="d-flex flex-column">
-						<div className="card form-container d-flex flex-column mb-3">
-							<form className=" d-flex flex-column" onSubmit={this.onFormSubmit}>
+						<div className="card form-container d-flex flex-column py-4 mb-3">
+							<form className=" d-flex flex-column " onSubmit={this.onFormSubmit}>
 								<h3 className="align-self-center ">Login</h3>
-								<div className="form-group mt-3">
-									<label>Username</label>
+								<div className="form-group mt-4">
+									{/* <label>Username</label> */}
 									<div className="input-group">
 										<span className="input-group-text" id="username-addon">
 											<i className="fas fa-user" />
@@ -75,12 +75,12 @@ class Landing extends React.Component {
 											type="text"
 											className="form-control"
 											id="username"
-											placeholder="Enter username"
+											placeholder="Username"
 										/>
 									</div>
 								</div>
-								<div className="form-group mt-3">
-									<label>Password</label>
+								<div className="form-group mt-4">
+									{/* <label>Password</label> */}
 									<div className="input-group">
 										<span className="input-group-text" id="password-addon">
 											<i className="fas fa-lock" />
@@ -94,7 +94,7 @@ class Landing extends React.Component {
 									</div>
 								</div>
 
-								<button type="submit" className="btn btn-secondary btn-sm mt-3">
+								<button type="submit" className="btn btn-secondary btn-sm mt-4">
 									Login
 								</button>
 							</form>

@@ -63,9 +63,9 @@ class Purchase extends React.Component {
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'hidden';
 			this.props.onHide();
-			this.setState({
-				purchaseComplete: false
-			});
+			// this.setState({
+			// 	purchaseComplete: false
+			// });
 		}
 	}
 
@@ -123,8 +123,7 @@ class Purchase extends React.Component {
 			.then(
 				this.setState({
 					accountBalance: updatedAcountBalance,
-					purchaseError: false,
-					purchaseComplete: true
+					purchaseError: false
 				})
 			)
 			.catch((error) => {
@@ -137,6 +136,11 @@ class Purchase extends React.Component {
 		// 	console.log(purchasePrice);
 		// }
 	}
+
+	// sellStock(e) {
+	// 	e.preventDefault();
+	// 	console.log('Sell button clicked');
+	// }
 
 	render() {
 		let purchaseError = this.state.purchaseError

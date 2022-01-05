@@ -2,14 +2,14 @@ import axios from 'axios';
 import React from 'react';
 import SharesCard from './SharesCard';
 
-const SharesList = ({ shares, currentPrices, updateNetAssets }) => {
+const SharesList = ({ shares, currentPrices, updateNetAssets, onSell }) => {
 	let netAssets = 0;
 	const sharesCards = shares.map((stock) => {
 		const currentPrice = currentPrices[stock.symbol];
 		const currentValue = stock.totalshares * currentPrice.quote.latestPrice;
 		netAssets += currentValue;
 
-		return <SharesCard key={stock.stock_id} stock={stock} currentPrice={currentPrice} />;
+		return <SharesCard key={stock.stock_id} stock={stock} currentPrice={currentPrice} onSell={onSell} />;
 	});
 	//console.log(netAssets);
 	updateNetAssets(netAssets);

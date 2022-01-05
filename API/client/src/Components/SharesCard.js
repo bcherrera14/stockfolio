@@ -28,7 +28,15 @@ class SharesCard extends React.Component {
 				<div className="d-flex">
 					<div className="d-flex flex-column me-auto m-3 justify-content-center">
 						<h4>{this.props.stock.companyname}</h4>
-						<button type="button" className="sell-btn btn btn-secondary btn-sm mt-2">
+						<button
+							type="button"
+							className="sell-btn btn btn-secondary btn-sm mt-2"
+							onClick={() =>
+								this.props.onSell(
+									true,
+									this.props.stock.totalshares * this.props.currentPrice.quote.latestPrice
+								)}
+						>
 							Sell
 						</button>
 					</div>

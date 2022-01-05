@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import SharesList from './SharesList';
 import Purchase from './Purchase';
+import SellStock from './SellStock';
 
 class Portfolio extends React.Component {
 	constructor(props) {
@@ -9,22 +10,33 @@ class Portfolio extends React.Component {
 		this.state = {
 			user_id: window.localStorage.getItem('user_id'),
 			modalShow: false,
+			sellModalShow: false,
 			shares: [],
 			accountBalance: 0,
 			netAssets: 0,
-			currentPrices: null
+			currentPrices: null,
+			updateStockList: false
 		};
 		this.setModalShow = this.setModalShow.bind(this);
 		this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
 		this.getUsersStocks = this.getUsersStocks.bind(this);
 		this.getAccountBalance = this.getAccountBalance.bind(this);
 		this.updateNetAssets = this.updateNetAssets.bind(this);
+		this.setSellModalShow = this.setSellModalShow.bind(this);
 	}
 
 	setModalShow(bool) {
 		this.setState({
 			modalShow: bool
 		});
+	}
+
+	setSellModalShow(bool, price) {
+		this.setState({
+			sellModalShow: bool
+		});
+		console.log('sell button clicked');
+		console.log(price);
 	}
 
 	getUsersStocks() {
@@ -38,7 +50,8 @@ class Portfolio extends React.Component {
 			.then((response) => {
 				//console.log(response.data);
 				this.setState({
-					shares: response.data
+					shares: response.data,
+					updateStockList: false
 				});
 				//console.log(this.state.shares);
 
@@ -67,7 +80,8 @@ class Portfolio extends React.Component {
 					//console.log(response.data);
 					// console.log(this.state);
 					this.setState({
-						currentPrices: response.data
+						currentPrices: response.data,
+						updateStockList: true
 					});
 					//console.log('get stock price error');
 				})
@@ -116,6 +130,7 @@ class Portfolio extends React.Component {
 		if (prevState.shares !== this.state.shares) {
 			this.getCurrentStockPrice();
 			this.getAccountBalance();
+
 			//console.log('comp update');
 		}
 	}
@@ -150,11 +165,12 @@ class Portfolio extends React.Component {
 					</div>
 				</div>
 				<hr className="m-3" />
-				{this.state.shares.length > 0 && this.state.currentPrices !== null ? (
+				{this.state.shares.length > 0 && this.state.updateStockList ? (
 					<SharesList
 						shares={this.state.shares}
 						currentPrices={this.state.currentPrices}
 						updateNetAssets={this.updateNetAssets}
+						onSell={this.setSellModalShow}
 					/>
 				) : (
 					<p className="ms-4">Purchase stocks.</p>
@@ -169,6 +185,7 @@ class Portfolio extends React.Component {
 						getstockprice={() => this.getCurrentStockPrice()}
 					/>
 				) : null}
+				<SellStock show={this.state.sellModalShow} onHide={() => this.setSellModalShow(false)} />
 			</div>
 		);
 	}
