@@ -36,11 +36,14 @@ class Portfolio extends React.Component {
 		axios
 			.get('http://localhost:5000/api/stocks/id', config)
 			.then((response) => {
-				console.log(response.data);
+				//console.log(response.data);
 				this.setState({
 					shares: response.data
 				});
+				//console.log(this.state.shares);
+
 				//console.log(this.state);
+				//console.log(this.state.shares);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -48,27 +51,30 @@ class Portfolio extends React.Component {
 	}
 
 	getCurrentStockPrice() {
-		let symbolList = [];
-		this.state.shares.forEach((share) => symbolList.push(share.symbol));
-		symbolList = [ ...new Set(symbolList) ];
+		if (this.state.shares.length > 0) {
+			let symbolList = [];
+			this.state.shares.forEach((share) => symbolList.push(share.symbol));
+			symbolList = [ ...new Set(symbolList) ];
 
-		let config = {
-			params: {
-				stockList: symbolList.join(',')
-			}
-		};
-		axios
-			.get('http://localhost:5000/api/stocks/search/all', config)
-			.then((response) => {
-				console.log(response.data);
-				// console.log(this.state);
-				this.setState({
-					currentPrices: response.data
+			let config = {
+				params: {
+					stockList: symbolList.join(',')
+				}
+			};
+			axios
+				.get('http://localhost:5000/api/stocks/search/all', config)
+				.then((response) => {
+					//console.log(response.data);
+					// console.log(this.state);
+					this.setState({
+						currentPrices: response.data
+					});
+					//console.log('get stock price error');
+				})
+				.catch((error) => {
+					console.log(error);
 				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		}
 	}
 
 	getAccountBalance() {
@@ -80,7 +86,7 @@ class Portfolio extends React.Component {
 		axios
 			.get('http://localhost:5000/api/user/id', config)
 			.then((response) => {
-				console.log(response.data);
+				//console.log(parseFloat(response.data.accountbalance));
 				this.setState({
 					accountBalance: parseFloat(response.data.accountbalance)
 				});
@@ -98,7 +104,7 @@ class Portfolio extends React.Component {
 			// 	//let Assets = netAssets;
 			// 	console.log(netAssets);
 		}
-		console.log(this.state.netAssets);
+		//console.log(this.state.netAssets);
 	}
 
 	componentDidMount() {
@@ -110,6 +116,7 @@ class Portfolio extends React.Component {
 		if (prevState.shares !== this.state.shares) {
 			this.getCurrentStockPrice();
 			this.getAccountBalance();
+			//console.log('comp update');
 		}
 	}
 
@@ -143,7 +150,7 @@ class Portfolio extends React.Component {
 					</div>
 				</div>
 				<hr className="m-3" />
-				{this.state.currentPrices !== null ? (
+				{this.state.shares.length > 0 && this.state.currentPrices !== null ? (
 					<SharesList
 						shares={this.state.shares}
 						currentPrices={this.state.currentPrices}
