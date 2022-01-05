@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import SharesCard from './SharesCard';
 
-const SharesList = ({ shares, currentPrices }) => {
+const SharesList = ({ shares, currentPrices, updateNetAssets }) => {
 	let netAssets = 0;
 	const sharesCards = shares.map((stock) => {
 		const currentPrice = currentPrices[stock.symbol];
@@ -11,8 +11,10 @@ const SharesList = ({ shares, currentPrices }) => {
 
 		return <SharesCard key={stock.stock_id} stock={stock} currentPrice={currentPrice} />;
 	});
+	//console.log(netAssets);
+	updateNetAssets(netAssets);
 
-	return <div className="d-flex flex-column align-items-center">{sharesCards}</div>;
+	return <div className="d-flex flex-column align-items-center mt-5">{sharesCards}</div>;
 };
 
 export default SharesList;

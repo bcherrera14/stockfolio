@@ -3,7 +3,7 @@ import axios from 'axios';
 import SharesList from './SharesList';
 import Purchase from './Purchase';
 
-class Landing extends React.Component {
+class Portfolio extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -11,12 +11,14 @@ class Landing extends React.Component {
 			modalShow: false,
 			shares: [],
 			accountBalance: 0,
+			netAssets: 0,
 			currentPrices: null
 		};
 		this.setModalShow = this.setModalShow.bind(this);
 		this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
 		this.getUsersStocks = this.getUsersStocks.bind(this);
 		this.getAccountBalance = this.getAccountBalance.bind(this);
+		this.updateNetAssets = this.updateNetAssets.bind(this);
 	}
 
 	setModalShow(bool) {
@@ -88,6 +90,17 @@ class Landing extends React.Component {
 			});
 	}
 
+	updateNetAssets(netAssets) {
+		if (this.state.netAssets !== netAssets) {
+			this.setState({
+				netAssets: netAssets
+			});
+			// 	//let Assets = netAssets;
+			// 	console.log(netAssets);
+		}
+		console.log(this.state.netAssets);
+	}
+
 	componentDidMount() {
 		this.getAccountBalance();
 		this.getUsersStocks();
@@ -110,7 +123,7 @@ class Landing extends React.Component {
 					</button>
 				</div>
 				<hr className="m-3" />
-				<div className="ml-auto me-auto m-5 d-flex justify-content-around account-balance">
+				<div className="ms-4 me-4 my-5 d-flex justify-content-between account-balance">
 					<div className="d-flex">
 						<h4 className="me-2">Account Balance:</h4>
 
@@ -122,12 +135,23 @@ class Landing extends React.Component {
 					</div>
 					<div className="d-flex">
 						<h4 className="me-2">Net Assets: </h4>
-						<h4>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(10)}</h4>
+						<h4>
+							{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
+								this.state.netAssets
+							)}
+						</h4>
 					</div>
 				</div>
+				<hr className="m-3" />
 				{this.state.currentPrices !== null ? (
-					<SharesList shares={this.state.shares} currentPrices={this.state.currentPrices} />
-				) : null}
+					<SharesList
+						shares={this.state.shares}
+						currentPrices={this.state.currentPrices}
+						updateNetAssets={this.updateNetAssets}
+					/>
+				) : (
+					<p className="ms-4">Purchase stocks.</p>
+				)}
 				{this.state.accountBalance !== 0 ? (
 					<Purchase
 						modalstate={this.state.modalShow.toString()}
@@ -143,4 +167,4 @@ class Landing extends React.Component {
 	}
 }
 
-export default Landing;
+export default Portfolio;

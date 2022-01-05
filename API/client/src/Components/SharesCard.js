@@ -26,7 +26,7 @@ class SharesCard extends React.Component {
 		return (
 			<div className="shares-card card ml-5 me-5 mb-4 align-center">
 				<div className="d-flex">
-					<div className="d-flex flex-column me-auto m-3">
+					<div className="d-flex flex-column me-auto m-3 justify-content-center">
 						<h4>{this.props.stock.companyname}</h4>
 						<button type="button" className="sell-btn btn btn-secondary btn-sm mt-2">
 							Sell
