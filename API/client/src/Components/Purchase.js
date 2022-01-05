@@ -11,7 +11,9 @@ class Purchase extends React.Component {
 			stockName: '',
 			stockPrice: '',
 			totalshares: 0,
-			accountBalance: this.props.accountbalance
+			accountBalance: this.props.accountbalance,
+			purchaseError: false,
+			purchaseComplete: false
 		};
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.purchaseStocks = this.purchaseStocks.bind(this);
@@ -48,7 +50,7 @@ class Purchase extends React.Component {
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'visible';
 		}
-		if (prevState.accountBalance !== this.state.accountBalance && bool(this.props.modalstate)) {
+		if (prevState.accountBalance !== this.state.accountBalance && this.props.modalstate === 'false') {
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'hidden';
 			this.props.onHide();
@@ -69,9 +71,18 @@ class Purchase extends React.Component {
 		const shares = e.target.shares.value;
 		const purchasePrice = parseInt(shares) * this.state.stockPrice;
 		const updatedAcountBalance = this.state.accountBalance - purchasePrice;
+		//check funds available
+		if (purchasePrice > this.state.accountBalance) {
+			this.setState({
+				purchaseError: true
+			});
+			return;
+		}
+
 		console.log(purchasePrice);
 		console.log(shares);
 		console.log(updatedAcountBalance);
+
 		const config1 = {
 			params: {
 				user_id: this.state.user_id,
@@ -99,7 +110,9 @@ class Purchase extends React.Component {
 			)
 			.then(
 				this.setState({
-					accountBalance: updatedAcountBalance
+					accountBalance: updatedAcountBalance,
+					purchaseError: false,
+					purchaseComplete: true
 				})
 			)
 			.catch((error) => {
@@ -114,6 +127,12 @@ class Purchase extends React.Component {
 	}
 
 	render() {
+		let purchaseError = this.state.purchaseError
+			? 'alert alert-danger d-flex align-items-center m-3 show-item'
+			: 'alert alert-danger d-flex align-items-center m-3 hide-item';
+		let purchaseComplete = this.state.purchaseComplete
+			? 'alert alert-success d-flex align-items-center m-3 show-item'
+			: 'alert alert-success d-flex align-items-center m-3 hide-item';
 		return (
 			<Modal {...this.props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
@@ -160,8 +179,9 @@ class Purchase extends React.Component {
 										)}
 									</strong>
 								</div>
-								<div id="shares" className=" d-flex justify-content-end input-group">
+								<div className="share-quantity d-flex justify-content-end input-group">
 									<input
+										id="shares"
 										className="col-4 mr-4 form-control form-control-sm"
 										type="text"
 										placeholder="Quantity"
@@ -171,6 +191,15 @@ class Purchase extends React.Component {
 									</button>
 								</div>
 							</form>
+						</div>
+
+						<div id="purchase-success" className={purchaseComplete}>
+							<i className="fas fa-check-circle me-2" />
+							<div>Purchase complete.</div>
+						</div>
+						<div id="purchase-error" className={purchaseError}>
+							<i className="fas fa-exclamation-circle me-2" />
+							<div>Insufficient funds.</div>
 						</div>
 					</div>
 				</Modal.Body>

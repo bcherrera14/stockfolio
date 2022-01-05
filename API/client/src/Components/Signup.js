@@ -15,8 +15,6 @@ class Signup extends React.Component {
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 	}
 
-	
-
 	onFormSubmit(e) {
 		e.preventDefault();
 		const firstName = e.target.firstname.value;
@@ -64,7 +62,7 @@ class Signup extends React.Component {
 					console.log(response);
 					this.setState({
 						userCreated: true
-                    })
+					});
 				})
 				.catch((error) => {
 					console.log(error);
@@ -73,9 +71,11 @@ class Signup extends React.Component {
 	}
 
 	render() {
-		let modalFormClass = this.state.userCreated ? "signup-form ms-auto me-auto hide-item" : "signup-form ms-auto me-auto show-item";
-		let modalSuccessClass = this.state.userCreated ? "show-item" : "hide-item";
-		
+		let modalFormClass = this.state.userCreated
+			? 'signup-form ms-auto me-auto hide-item'
+			: 'signup-form ms-auto me-auto show-item';
+		let modalSuccessClass = this.state.userCreated ? 'show-item' : 'hide-item';
+
 		return (
 			<Modal {...this.props} size="" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
@@ -126,10 +126,19 @@ class Signup extends React.Component {
 					</div>
 					<div className={modalSuccessClass}>
 						<div className="d-flex flex-column align-items-center justify-content-center">
-							<div className="success-banner d-flex justify-content-center"><i className="far fa-check-circle"></i></div>
+							<div className="success-banner d-flex justify-content-center">
+								<i className="far fa-check-circle" />
+							</div>
 							<h1 className="mt-2">Great!</h1>
 							<p>Your account has been created successfully.</p>
-							<button onClick={()=> this.props.onHide() } type="button" className="btn btn-secondary" data-bs-dismiss="modal">Login <i className="fas fa-arrow-right ms-2"></i></button>
+							<button
+								onClick={() => this.props.onHide()}
+								type="button"
+								className="btn btn-secondary"
+								data-bs-dismiss="modal"
+							>
+								Login <i className="fas fa-arrow-right ms-2" />
+							</button>
 						</div>
 					</div>
 				</Modal.Body>

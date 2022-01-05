@@ -17,7 +17,7 @@ nav {
 }
 
 .hide-item {
-	display: none;
+	display: none !important;
 }
 
 .landing-content {
@@ -41,7 +41,7 @@ form i {
 	color: #6c757d;
 }
 
-.fa-check-circle {
+.success-banner > i {
 	font-size: 5em;
 	font-weight: 100;
 	color: #fff9ea;
@@ -94,6 +94,6 @@ hr {
 	visibility: hidden;
 }
 
-#shares {
+.share-quantity {
 	width: 125px;
 }
