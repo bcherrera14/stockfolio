@@ -134,8 +134,8 @@ class Landing extends React.Component {
 						show={this.state.modalShow}
 						onHide={() => this.setModalShow(false)}
 						accountbalance={this.state.accountBalance}
-						getStocks={() => this.getUsersStocks()}
-						getStockPrice={() => this.getCurrentStockPrice()}
+						getstocks={() => this.getUsersStocks()}
+						getstockprice={() => this.getCurrentStockPrice()}
 					/>
 				) : null}
 			</div>

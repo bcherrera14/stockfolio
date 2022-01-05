@@ -58,13 +58,14 @@ class Purchase extends React.Component {
 			searchResult.style.visibility = 'visible';
 		}
 		if (prevState.accountBalance !== this.state.accountBalance && this.props.modalstate === 'true') {
+			this.props.getstocks();
+			this.props.getstockprice();
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'hidden';
 			this.props.onHide();
 			this.setState({
 				purchaseComplete: false
 			});
-			this.props.getStocks();
 		}
 	}
 
@@ -148,7 +149,13 @@ class Purchase extends React.Component {
 			? 'alert alert-success d-flex align-items-center m-3 show-item'
 			: 'alert alert-success d-flex align-items-center m-3 hide-item';
 		return (
-			<Modal {...this.props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+			<Modal
+				show={this.props.show}
+				onHide={this.props.onHide}
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+			>
 				<Modal.Body>
 					<div className="stock-modal">
 						<form className="" onSubmit={this.onFormSubmit}>
