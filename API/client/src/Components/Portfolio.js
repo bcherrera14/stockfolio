@@ -38,7 +38,7 @@ class Landing extends React.Component {
 				this.setState({
 					shares: response.data
 				});
-				console.log(this.state);
+				//console.log(this.state);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -96,6 +96,7 @@ class Landing extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.shares !== this.state.shares) {
 			this.getCurrentStockPrice();
+			this.getAccountBalance();
 		}
 	}
 
@@ -133,6 +134,8 @@ class Landing extends React.Component {
 						show={this.state.modalShow}
 						onHide={() => this.setModalShow(false)}
 						accountbalance={this.state.accountBalance}
+						getStocks={() => this.getUsersStocks()}
+						getStockPrice={() => this.getCurrentStockPrice()}
 					/>
 				) : null}
 			</div>

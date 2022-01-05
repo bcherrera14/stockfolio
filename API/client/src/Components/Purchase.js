@@ -13,7 +13,8 @@ class Purchase extends React.Component {
 			totalshares: 0,
 			accountBalance: this.props.accountbalance,
 			purchaseError: false,
-			purchaseComplete: false
+			purchaseComplete: false,
+			searchError: false
 		};
 		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.purchaseStocks = this.purchaseStocks.bind(this);
@@ -39,21 +40,31 @@ class Purchase extends React.Component {
 					console.log(response.data);
 					this.setState({
 						stockName: response.data.companyName,
-						stockPrice: parseFloat(response.data.latestPrice)
+						stockPrice: parseFloat(response.data.latestPrice),
+						searchError: false
 					});
 				})
 				.catch((error) => {
 					console.log(error);
+					let searchResult = document.getElementById('stock-search-result');
+					searchResult.style.visibility = 'hidden';
+					this.setState({
+						searchError: true
+					});
 				});
 		}
 		if (prevState.stockPrice !== this.state.stockPrice) {
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'visible';
 		}
-		if (prevState.accountBalance !== this.state.accountBalance && this.props.modalstate === 'false') {
+		if (prevState.accountBalance !== this.state.accountBalance && this.props.modalstate === 'true') {
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'hidden';
 			this.props.onHide();
+			this.setState({
+				purchaseComplete: false
+			});
+			this.props.getStocks();
 		}
 	}
 
@@ -130,6 +141,9 @@ class Purchase extends React.Component {
 		let purchaseError = this.state.purchaseError
 			? 'alert alert-danger d-flex align-items-center m-3 show-item'
 			: 'alert alert-danger d-flex align-items-center m-3 hide-item';
+		let searchError = this.state.searchError
+			? 'alert alert-danger d-flex align-items-center m-3 show-item'
+			: 'alert alert-danger d-flex align-items-center m-3 hide-item';
 		let purchaseComplete = this.state.purchaseComplete
 			? 'alert alert-success d-flex align-items-center m-3 show-item'
 			: 'alert alert-success d-flex align-items-center m-3 hide-item';
@@ -200,6 +214,10 @@ class Purchase extends React.Component {
 						<div id="purchase-error" className={purchaseError}>
 							<i className="fas fa-exclamation-circle me-2" />
 							<div>Insufficient funds.</div>
+						</div>
+						<div id="search-error" className={searchError}>
+							<i className="fas fa-exclamation-circle me-2" />
+							<div>Company not found.</div>
 						</div>
 					</div>
 				</Modal.Body>
