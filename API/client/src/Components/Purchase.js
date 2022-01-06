@@ -163,7 +163,7 @@ class Purchase extends React.Component {
 			>
 				<Modal.Body>
 					<div className="stock-modal">
-						<form className="" onSubmit={this.onFormSubmit}>
+						<form className="" onSubmit={this.onFormSubmit} autoComplete="off">
 							<h3 className="align-self-center">Purchase Stocks</h3>
 							<hr />
 							<p>
@@ -196,6 +196,7 @@ class Purchase extends React.Component {
 							<form
 								className="d-flex card-body form-row align-items-center justify-content-between"
 								onSubmit={this.purchaseStocks}
+								autoComplete="off"
 							>
 								<div className="col-5 my-1 d-flex justify-content-between">
 									<span className="mr-auto">{this.state.stockName}</span>{' '}

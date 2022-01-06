@@ -80,7 +80,7 @@ class Signup extends React.Component {
 			<Modal {...this.props} size="" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
 					<div className={modalFormClass}>
-						<form className="d-flex flex-column" onSubmit={this.onFormSubmit}>
+						<form className="d-flex flex-column" onSubmit={this.onFormSubmit} autoComplete="off">
 							<h3 className="align-self-center mb-2">Sign Up</h3>
 							<div className="form-group mb-2">
 								<label>First Name</label>

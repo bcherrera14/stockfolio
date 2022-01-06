@@ -198,7 +198,7 @@ class Portfolio extends React.Component {
 					</button>
 				</div>
 				<hr className="m-3" />
-				<div className="ms-4 me-4 my-5 d-flex justify-content-between account-balance">
+				<div className="ms-4 me-4 my-5 d-flex justify-content-start account-balance">
 					<div className="d-flex">
 						<h4 className="me-2">Account Balance:</h4>
 
@@ -208,14 +208,14 @@ class Portfolio extends React.Component {
 							)}
 						</h4>
 					</div>
-					<div className="d-flex">
+					{/* <div className="d-flex">
 						<h4 className="me-2">Net Assets: </h4>
 						<h4>
 							{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(
 								this.state.netAssets
 							)}
 						</h4>
-					</div>
+					</div> */}
 				</div>
 				<hr className="m-3" />
 				{this.state.shares.length < 1 ? <p className="ms-4">Purchase stocks.</p> : null}

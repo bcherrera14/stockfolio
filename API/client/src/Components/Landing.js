@@ -73,7 +73,7 @@ class Landing extends React.Component {
 					</div>
 					<div className="d-flex flex-column">
 						<div className="card form-container d-flex flex-column py-4 mb-3">
-							<form className=" d-flex flex-column " onSubmit={this.onFormSubmit}>
+							<form className=" d-flex flex-column " onSubmit={this.onFormSubmit} autoComplete="off">
 								<h3 className="align-self-center ">Login</h3>
 								<div className="form-group mt-4">
 									{/* <label>Username</label> */}
