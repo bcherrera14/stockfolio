@@ -48,6 +48,7 @@ class Landing extends React.Component {
 				.then((response) => {
 					console.log(response.data);
 					window.localStorage.setItem('user_id', response.data.id);
+					window.localStorage.setItem('name', response.data.firstname);
 					this.props.navigate('/portfolio');
 				})
 				.catch((error) => {

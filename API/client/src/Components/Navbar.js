@@ -3,13 +3,15 @@ import { Link, NavLink, Outlet, location } from 'react-router-dom';
 import Rocket from '../images/rocket-solid.svg';
 
 const Navbar = () => {
-	function logoutUser(){
+	function logoutUser() {
 		localStorage.removeItem('user_id');
 		//console.log(window.localStorage.getItem('user_id'));
 	}
 
-	let logoutClass = window.localStorage.getItem('user_id') ? "nav-link ms-auto show-item" : "nav-link ms-auto hide-item";
-	let navItemClass = window.localStorage.getItem('user_id') ? "nav-item show-item" : "nav-item hide-item";
+	let logoutClass = window.localStorage.getItem('user_id')
+		? 'nav-link ms-auto show-item'
+		: 'nav-link ms-auto hide-item';
+	let navItemClass = window.localStorage.getItem('user_id') ? 'nav-item show-item' : 'nav-item hide-item';
 	return (
 		<div>
 			<nav className="navbar navbar-expand-lg navbar-dark">
@@ -45,10 +47,11 @@ const Navbar = () => {
 							</li>
 							<li className="nav-item" />
 						</ul>
-
-						<NavLink id="logout" className={logoutClass} to="/" onClick={() => logoutUser()}>
-							<i className="fas fa-sign-out-alt" /> Logout
-						</NavLink>
+						<div className="ms-auto d-flex">
+							<NavLink id="logout" className={logoutClass} to="/" onClick={() => logoutUser()}>
+								<i className="fas fa-sign-out-alt" /> Logout
+							</NavLink>
+						</div>
 					</div>
 				</div>
 			</nav>

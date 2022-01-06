@@ -17,7 +17,7 @@ class SellStock extends React.Component {
 					<div className="sell-modal">
 						<div className="d-flex flex-column align-items-center justify-content-center">
 							<div className="d-flex justify-content-center">
-								<i className="fas fa-exclamation-circle" />
+								<i className="fas fa-exclamation-circle sell-warning" />
 							</div>
 							<h1 className="mt-2">Are you sure?</h1>
 							<p>Are you sure you want to sell this stock?</p>

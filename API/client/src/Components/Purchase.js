@@ -58,8 +58,9 @@ class Purchase extends React.Component {
 			searchResult.style.visibility = 'visible';
 		}
 		if (prevState.accountBalance !== this.state.accountBalance && this.props.modalstate === 'true') {
-			this.props.getstocks();
-			this.props.getstockprice();
+			//this.props.getstocks();
+			//this.props.getstockprice();
+			this.props.updateAccountBalance(this.state.accountBalance);
 			let searchResult = document.getElementById('stock-search-result');
 			searchResult.style.visibility = 'hidden';
 			this.props.onHide();
@@ -120,12 +121,12 @@ class Purchase extends React.Component {
 					console.log('data1', data1, 'data2', data2);
 				})
 			)
-			.then(
+			.then(() => {
 				this.setState({
 					accountBalance: updatedAcountBalance,
 					purchaseError: false
-				})
-			)
+				});
+			})
 			.catch((error) => {
 				console.log(error);
 			});

@@ -25,6 +25,7 @@ class Portfolio extends React.Component {
 		this.getAccountBalance = this.getAccountBalance.bind(this);
 		this.updateNetAssets = this.updateNetAssets.bind(this);
 		this.deleteStock = this.deleteStock.bind(this);
+		this.updateAccountBalance = this.updateAccountBalance.bind(this);
 	}
 
 	setModalShow(bool, modal, stockId, value) {
@@ -56,10 +57,6 @@ class Portfolio extends React.Component {
 					shares: response.data,
 					updateStockList: false
 				});
-				//console.log(this.state.shares);
-
-				//console.log(this.state);
-				//console.log(this.state.shares);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -112,25 +109,24 @@ class Portfolio extends React.Component {
 
 		axios
 			.all([
-				axios.post('http://localhost:5000/api/user/id', null, config1),
-				axios.get('http://localhost:5000/api/stock/delete', config2)
+				axios.get('http://localhost:5000/api/stock/delete', config2),
+				axios.post('http://localhost:5000/api/user/id', null, config1)
 			])
 			.then(
 				axios.spread((data1, data2) => {
 					console.log('data1', data1, 'data2', data2);
 				})
 			)
-			.then(
+			.then(() => {
+				console.log('Stock removed');
 				this.setState({
-					accountBalance: updatedBalance
-				})
-			)
+					accountBalance: updatedBalance,
+					sellModalShow: false
+				});
+			})
 			.catch((error) => {
 				console.log(error);
 			});
-		this.setModalShow(false, 'sell');
-		this.getAccountBalance();
-		this.getUsersStocks();
 	}
 
 	getAccountBalance() {
@@ -152,6 +148,12 @@ class Portfolio extends React.Component {
 			});
 	}
 
+	updateAccountBalance(balance) {
+		this.setState({
+			accountBalance: balance
+		});
+	}
+
 	updateNetAssets(netAssets) {
 		// if (this.state.netAssets !== netAssets) {
 		// 	this.setState({
@@ -166,27 +168,26 @@ class Portfolio extends React.Component {
 
 	componentDidMount() {
 		this.getAccountBalance();
-		this.getUsersStocks();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.shares !== this.state.shares) {
 			this.getCurrentStockPrice();
-			this.getAccountBalance();
-
-			//console.log('comp update');
+			console.log('update stock list');
 		}
-		// if (prevState.accountBalance !== this.state.accountBalance) {
-		// 	this.getUsersStocks();
-		// 	this.getCurrentStockPrice();
-		// }
+
+		if (prevState.accountBalance !== this.state.accountBalance) {
+			this.getUsersStocks();
+			console.log('update account balance');
+		}
 	}
 
 	render() {
+		let name = window.localStorage.getItem('name');
 		return (
 			<div className="container">
 				<div className="d-flex align-items-center m-4">
-					<h1 className="mb-0">My Portfolio</h1>
+					<h1 className="mb-0">{name}'s Portfolio</h1>
 					<button
 						type="button"
 						className="btn btn-primary ms-auto"
@@ -232,8 +233,7 @@ class Portfolio extends React.Component {
 						show={this.state.modalShow}
 						onHide={() => this.setModalShow(false, 'purchase')}
 						accountbalance={this.state.accountBalance}
-						getstocks={() => this.getUsersStocks()}
-						getstockprice={() => this.getCurrentStockPrice()}
+						updateAccountBalance={this.updateAccountBalance}
 					/>
 				) : null}
 				<SellStock
