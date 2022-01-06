@@ -84,5 +84,22 @@ namespace API.Controllers
             }
             return Ok(string.Format("Created New Stock {0} QTY: {1}", companyname, totalshares));
         }
+
+        //Sell Stock Holding (Delete Stock)
+        [HttpGet("api/stock/delete")]
+        public ActionResult SellStock(string stock_id)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    var stock = session.Query<StockData>()
+                        .Where(s => s.stock_id == stock_id).FirstOrDefault();
+                    session.Delete(stock);
+                    transaction.Commit();
+                }
+            }
+            return Ok(string.Format("Sold Stock id: {0}", stock_id));
+        }
     }
 }

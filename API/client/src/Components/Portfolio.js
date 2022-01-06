@@ -22,21 +22,19 @@ class Portfolio extends React.Component {
 		this.getUsersStocks = this.getUsersStocks.bind(this);
 		this.getAccountBalance = this.getAccountBalance.bind(this);
 		this.updateNetAssets = this.updateNetAssets.bind(this);
-		this.setSellModalShow = this.setSellModalShow.bind(this);
 	}
 
-	setModalShow(bool) {
-		this.setState({
-			modalShow: bool
-		});
-	}
-
-	setSellModalShow(bool, price) {
-		this.setState({
-			sellModalShow: bool
-		});
-		console.log('sell button clicked');
-		console.log(price);
+	setModalShow(bool, modal) {
+		if (modal === 'purchase') {
+			this.setState({
+				modalShow: bool
+			});
+		}
+		if (modal === 'sell') {
+			this.setState({
+				sellModalShow: bool
+			});
+		}
 	}
 
 	getUsersStocks() {
@@ -118,6 +116,7 @@ class Portfolio extends React.Component {
 			// 	//let Assets = netAssets;
 			// 	console.log(netAssets);
 		}
+		//return this.state.netAssets;
 		//console.log(this.state.netAssets);
 	}
 
@@ -140,7 +139,11 @@ class Portfolio extends React.Component {
 			<div className="container">
 				<div className="d-flex align-items-center m-4">
 					<h1 className="mb-0">My Portfolio</h1>
-					<button type="button" className="btn btn-primary ms-auto" onClick={() => this.setModalShow(true)}>
+					<button
+						type="button"
+						className="btn btn-primary ms-auto"
+						onClick={() => this.setModalShow(true, 'purchase')}
+					>
 						Purchase Stocks
 					</button>
 				</div>
@@ -170,7 +173,7 @@ class Portfolio extends React.Component {
 						shares={this.state.shares}
 						currentPrices={this.state.currentPrices}
 						updateNetAssets={this.updateNetAssets}
-						onSell={this.setSellModalShow}
+						onSell={this.setModalShow}
 					/>
 				) : (
 					<p className="ms-4">Purchase stocks.</p>
@@ -179,13 +182,13 @@ class Portfolio extends React.Component {
 					<Purchase
 						modalstate={this.state.modalShow.toString()}
 						show={this.state.modalShow}
-						onHide={() => this.setModalShow(false)}
+						onHide={() => this.setModalShow(false, 'purchase')}
 						accountbalance={this.state.accountBalance}
 						getstocks={() => this.getUsersStocks()}
 						getstockprice={() => this.getCurrentStockPrice()}
 					/>
 				) : null}
-				<SellStock show={this.state.sellModalShow} onHide={() => this.setSellModalShow(false)} />
+				<SellStock show={this.state.sellModalShow} onHide={() => this.setModalShow(false, 'sell')} />
 			</div>
 		);
 	}

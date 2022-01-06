@@ -97,3 +97,16 @@ hr {
 .share-quantity {
 	width: 125px;
 }
+
+.fa-exclamation-circle {
+	font-size: 5em;
+	font-weight: 100;
+	color: #f1b881;
+	padding: 20px;
+}
+
+#sell-btn {
+	background-color: #47c9a2;
+	border-color: #47c9a2;
+	width: 72px;
+}

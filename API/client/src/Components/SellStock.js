@@ -14,9 +14,33 @@ class SellStock extends React.Component {
 		return (
 			<Modal show={this.props.show} onHide={this.props.onHide} centered>
 				<Modal.Body>
-					<div className="stock-modal">
-						<h3 className="align-self-center">Sell Stocks</h3>
-						<hr />
+					<div className="sell-modal">
+						<div className="d-flex flex-column align-items-center justify-content-center">
+							<div className="d-flex justify-content-center">
+								<i className="fas fa-exclamation-circle" />
+							</div>
+							<h1 className="mt-2">Are you sure?</h1>
+							<p>Are you sure you want to sell this stock?</p>
+							<div>
+								<button
+									onClick={() => this.props.onHide()}
+									type="button"
+									className="btn btn-secondary mt-2"
+									data-bs-dismiss="modal"
+								>
+									Cancel
+								</button>
+								<button
+									id="sell-btn"
+									onClick={() => this.props.onHide()}
+									type="button"
+									className="btn btn-success mt-2 ms-5"
+									data-bs-dismiss="modal"
+								>
+									Sell
+								</button>
+							</div>
+						</div>
 					</div>
 				</Modal.Body>
 			</Modal>

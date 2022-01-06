@@ -31,11 +31,7 @@ class SharesCard extends React.Component {
 						<button
 							type="button"
 							className="sell-btn btn btn-secondary btn-sm mt-2"
-							onClick={() =>
-								this.props.onSell(
-									true,
-									this.props.stock.totalshares * this.props.currentPrice.quote.latestPrice
-								)}
+							onClick={() => this.props.onSell(true, 'sell')}
 						>
 							Sell
 						</button>
