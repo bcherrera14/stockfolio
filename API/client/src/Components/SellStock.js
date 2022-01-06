@@ -32,7 +32,7 @@ class SellStock extends React.Component {
 								</button>
 								<button
 									id="sell-btn"
-									onClick={() => this.props.onHide()}
+									onClick={() => this.props.onSell()}
 									type="button"
 									className="btn btn-success mt-2 ms-5"
 									data-bs-dismiss="modal"

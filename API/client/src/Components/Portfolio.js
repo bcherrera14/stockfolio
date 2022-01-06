@@ -15,16 +15,19 @@ class Portfolio extends React.Component {
 			accountBalance: 0,
 			netAssets: 0,
 			currentPrices: null,
-			updateStockList: false
+			updateStockList: false,
+			selectedStock: null,
+			stockValue: 0
 		};
 		this.setModalShow = this.setModalShow.bind(this);
 		this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
 		this.getUsersStocks = this.getUsersStocks.bind(this);
 		this.getAccountBalance = this.getAccountBalance.bind(this);
 		this.updateNetAssets = this.updateNetAssets.bind(this);
+		this.deleteStock = this.deleteStock.bind(this);
 	}
 
-	setModalShow(bool, modal) {
+	setModalShow(bool, modal, stockId, value) {
 		if (modal === 'purchase') {
 			this.setState({
 				modalShow: bool
@@ -32,7 +35,9 @@ class Portfolio extends React.Component {
 		}
 		if (modal === 'sell') {
 			this.setState({
-				sellModalShow: bool
+				sellModalShow: bool,
+				selectedStock: stockId,
+				stockValue: value
 			});
 		}
 	}
@@ -46,7 +51,7 @@ class Portfolio extends React.Component {
 		axios
 			.get('http://localhost:5000/api/stocks/id', config)
 			.then((response) => {
-				//console.log(response.data);
+				console.log('get user stocks!');
 				this.setState({
 					shares: response.data,
 					updateStockList: false
@@ -87,6 +92,45 @@ class Portfolio extends React.Component {
 					console.log(error);
 				});
 		}
+	}
+
+	deleteStock() {
+		let updatedBalance = this.state.accountBalance + this.state.stockValue;
+		console.log(`${this.state.selectedStock} sold for ${this.state.stockValue}`);
+		console.log(`Your new balance is ${updatedBalance}`);
+		const config1 = {
+			params: {
+				user_id: this.state.user_id,
+				accountbalance: updatedBalance
+			}
+		};
+		const config2 = {
+			params: {
+				stock_id: this.state.selectedStock
+			}
+		};
+
+		axios
+			.all([
+				axios.post('http://localhost:5000/api/user/id', null, config1),
+				axios.get('http://localhost:5000/api/stock/delete', config2)
+			])
+			.then(
+				axios.spread((data1, data2) => {
+					console.log('data1', data1, 'data2', data2);
+				})
+			)
+			.then(
+				this.setState({
+					accountBalance: updatedBalance
+				})
+			)
+			.catch((error) => {
+				console.log(error);
+			});
+		this.setModalShow(false, 'sell');
+		this.getUsersStocks();
+		this.getCurrentStockPrice();
 	}
 
 	getAccountBalance() {
@@ -173,7 +217,7 @@ class Portfolio extends React.Component {
 						shares={this.state.shares}
 						currentPrices={this.state.currentPrices}
 						updateNetAssets={this.updateNetAssets}
-						onSell={this.setModalShow}
+						selectStock={this.setModalShow}
 					/>
 				) : (
 					<p className="ms-4">Purchase stocks.</p>
@@ -188,7 +232,11 @@ class Portfolio extends React.Component {
 						getstockprice={() => this.getCurrentStockPrice()}
 					/>
 				) : null}
-				<SellStock show={this.state.sellModalShow} onHide={() => this.setModalShow(false, 'sell')} />
+				<SellStock
+					show={this.state.sellModalShow}
+					onHide={() => this.setModalShow(false, 'sell')}
+					onSell={this.deleteStock}
+				/>
 			</div>
 		);
 	}

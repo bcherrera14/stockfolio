@@ -22,7 +22,7 @@ class SharesCard extends React.Component {
 		const priceChange = this.props.currentPrice.quote.latestPrice - this.props.stock.purchaseprice;
 		const gainTextColor = priceChange < 0 ? 'text-red' : 'text-green';
 		const gainText = priceChange < 0 ? 'Loss' : 'Gain';
-
+		const value = this.props.stock.totalshares * this.props.currentPrice.quote.latestPrice;
 		return (
 			<div className="shares-card card ml-5 me-5 mb-4 align-center">
 				<div className="d-flex">
@@ -31,7 +31,7 @@ class SharesCard extends React.Component {
 						<button
 							type="button"
 							className="sell-btn btn btn-secondary btn-sm mt-2"
-							onClick={() => this.props.onSell(true, 'sell')}
+							onClick={() => this.props.selectStock(true, 'sell', this.props.stock.stock_id, value)}
 						>
 							Sell
 						</button>
