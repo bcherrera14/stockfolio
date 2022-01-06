@@ -61,7 +61,16 @@ class Landing extends React.Component {
 		return (
 			<div className="landing-page">
 				<div className="landing-content d-flex flex-wrap justify-content-around align-items-center">
-					<h1>App Descritpion</h1>
+					<div className="app-description">
+						<h1>Simulated Investing for</h1>
+						<h1>
+							Everyday <span>Traders.</span>
+						</h1>
+						<p className="text-secondary">
+							Stockfolio is a place to buy and sell stocks using fake money. Track performance and find
+							the right opportunity to invest.
+						</p>
+					</div>
 					<div className="d-flex flex-column">
 						<div className="card form-container d-flex flex-column py-4 mb-3">
 							<form className=" d-flex flex-column " onSubmit={this.onFormSubmit}>

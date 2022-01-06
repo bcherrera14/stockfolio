@@ -5,6 +5,7 @@ import Rocket from '../images/rocket-solid.svg';
 const Navbar = () => {
 	function logoutUser() {
 		localStorage.removeItem('user_id');
+		localStorage.removeItem('name');
 		//console.log(window.localStorage.getItem('user_id'));
 	}
 

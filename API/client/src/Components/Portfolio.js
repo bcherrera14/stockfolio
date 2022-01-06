@@ -19,6 +19,7 @@ class Portfolio extends React.Component {
 			selectedStock: null,
 			stockValue: 0
 		};
+
 		this.setModalShow = this.setModalShow.bind(this);
 		this.getCurrentStockPrice = this.getCurrentStockPrice.bind(this);
 		this.getUsersStocks = this.getUsersStocks.bind(this);
@@ -217,6 +218,14 @@ class Portfolio extends React.Component {
 					</div>
 				</div>
 				<hr className="m-3" />
+				{this.state.shares.length < 1 ? <p className="ms-4">Purchase stocks.</p> : null}
+				{!this.state.updateStockList && this.state.shares.length > 0 ? (
+					<div className="d-flex justify-content-center mt-5">
+						<div className="spinner-border text-secondary spinner-border-lg" role="status">
+							<span className="visually-hidden">Loading...</span>
+						</div>
+					</div>
+				) : null}
 				{this.state.shares.length > 0 && this.state.updateStockList ? (
 					<SharesList
 						shares={this.state.shares}
@@ -224,9 +233,7 @@ class Portfolio extends React.Component {
 						updateNetAssets={this.updateNetAssets}
 						selectStock={this.setModalShow}
 					/>
-				) : (
-					<p className="ms-4">Purchase stocks.</p>
-				)}
+				) : null}
 				{this.state.accountBalance !== 0 ? (
 					<Purchase
 						modalstate={this.state.modalShow.toString()}
