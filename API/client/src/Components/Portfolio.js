@@ -129,8 +129,8 @@ class Portfolio extends React.Component {
 				console.log(error);
 			});
 		this.setModalShow(false, 'sell');
+		this.getAccountBalance();
 		this.getUsersStocks();
-		this.getCurrentStockPrice();
 	}
 
 	getAccountBalance() {
@@ -153,13 +153,13 @@ class Portfolio extends React.Component {
 	}
 
 	updateNetAssets(netAssets) {
-		if (this.state.netAssets !== netAssets) {
-			this.setState({
-				netAssets: netAssets
-			});
-			// 	//let Assets = netAssets;
-			// 	console.log(netAssets);
-		}
+		// if (this.state.netAssets !== netAssets) {
+		// 	this.setState({
+		// 		netAssets: netAssets
+		// 	});
+		// 	//let Assets = netAssets;
+		console.log(netAssets);
+		//}
 		//return this.state.netAssets;
 		//console.log(this.state.netAssets);
 	}
@@ -176,6 +176,10 @@ class Portfolio extends React.Component {
 
 			//console.log('comp update');
 		}
+		// if (prevState.accountBalance !== this.state.accountBalance) {
+		// 	this.getUsersStocks();
+		// 	this.getCurrentStockPrice();
+		// }
 	}
 
 	render() {
